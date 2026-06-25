@@ -62,12 +62,27 @@ while True:
             continue
 
         if 0 <= index < len(notes):
+            new_title = input("New title: ")
+            if new_title.strip() == "":
+                print("Title cannot be empty!")
+                continue
+
+            new_text = input("New text: ")
+            new_tags = [t.strip() for t in input("New tags (comma separated): ").split(",") if t.strip()]
+            new_date = input("New date (YYYY-MM-DD): ")
+
+            try:
+                datetime.strptime(new_date, "%Y-%m-%d")
+            except ValueError:
+                print("Invalid date format!")
+                continue
+
             service._save_state_to_stack()
             
-            notes[index].title = input("New title: ")
-            notes[index].text = input("New text: ")
-            notes[index].tags = [t.strip() for t in input("New tags (comma separated): ").split(",") if t.strip()]
-            notes[index].date = input("New date: ")
+            notes[index].title = new_title
+            notes[index].text = new_text
+            notes[index].tags = new_tags
+            notes[index].date = new_date
             print("Note updated!")
         else:
             print("Invalid note number!")
