@@ -73,5 +73,6 @@ class NoteService:
                     else:
                         continue
                     self.notes.append(note)
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Error loading JSON: {e}")
+
